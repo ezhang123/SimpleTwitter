@@ -1,5 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +30,7 @@ import okhttp3.Headers;
 public class TimelineActivity extends AppCompatActivity {
 
     public static final String TAG = "TimelineActivity";
+    private final int REQUEST_CODE = 20;
 
     TwitterClient client;
     RecyclerView rvTweets;
@@ -99,11 +102,13 @@ public class TimelineActivity extends AppCompatActivity {
             //Composed icon has been selected
             //Navigate to compose activity
             Intent intent = new Intent(this, ComposedActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_CODE);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    
 
     private void loadMoreData() {
         // 1. Send an API request to retrieve appropriate paginated data
